@@ -12,7 +12,7 @@ const CREATE_MEETING_ENDPOINT = `${API_BASE_URL}/api/CandidatePositionMeeting/Po
 const UPDATE_MEETING_ENDPOINT = `${API_BASE_URL}/api/CandidatePositionMeeting/Put`; 
 const SUGGESTION_ENDPOINT = `${API_BASE_URL}/api/CandidatePosition/Suggestion`;
 
-const GOOGLE_CLIENT_ID = "BURAYA_GOOGLE_CLIENT_ID_YAZILACAK"; 
+const GOOGLE_CLIENT_ID = "139543619826-ql41ihekmh4d2lhi0p6spsihoio9q55t.apps.googleusercontent.com"; 
 
 const MeetingFormContent = () => {
   const { instance, accounts } = useMsal();
@@ -142,12 +142,12 @@ const MeetingFormContent = () => {
               ...changes // Değişen alanları spread ediyoruz
           };
 
-          // Özel alan mapping (Backend'in beklediği isimlere çevir)
+          // Özel alan mapping 
           if (changes.subject) backendPayload.title = changes.subject;
           if (changes.description) backendPayload.meetingResult = changes.description;
           if (changes.startDateTime) backendPayload.meetingDate = new Date(changes.startDateTime).toISOString();
           
-          // Zorunlu alanları ekle (Backend yapısına göre değişebilir, garanti olsun diye ID'leri yolluyoruz)
+          // Zorunlu alanları ekle 
           backendPayload.tenantId = Number(formData.tenantId);
           backendPayload.candidatePositionId = Number(formData.candidatePositionId);
 
@@ -249,11 +249,11 @@ const MeetingFormContent = () => {
       });
 
       if (bRes.ok) {
-        // --- TEST İÇİN: BACKEND'DEN GELEN ID'Yİ ALMAYA ÇALIŞIYORUZ ---
+        // --- TEST İÇİN: BACKEND'DEN GELEN ID AL ---
         let createdId = null;
         try {
             const resJson = await bRes.json();
-            // Backend cevabına göre ID'yi yakala (Genelde data.id veya direkt id)
+            // Backend cevabına göre ID'yi yakala 
             createdId = resJson.data?.id || resJson.id || resJson; 
             console.log("Oluşan Kayıt ID:", createdId);
         } catch(e) { console.log("ID okunamadı"); }
